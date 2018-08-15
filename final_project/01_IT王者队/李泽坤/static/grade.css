@@ -1,0 +1,26 @@
+body {
+    font-family: Consolas;
+    font-size: 2rem;
+}
+
+#header {
+    text-align: center;
+    color: darkcyan;
+}
+
+#main form{
+    position: absolute;
+    left: 32rem;
+}
+
+#main form input {
+    margin-top: 0.5rem;
+    margin-right: 1.5rem;
+}
+
+#grade,
+#course {
+    width: 10rem;
+    height: 1.5rem;
+    display: block;
+}

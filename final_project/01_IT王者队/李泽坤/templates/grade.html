@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='allGrade.css') }}">
+</head>
+<body>
+    <main id="main">
+        <h3>
+            <a href="/students/{{ sno_id }}/grades/new" class="build">新建成绩</a>
+            <a href="{{ url_for('students') }}" class="leave">Leave</a>
+        </h3>
+        {% for item in items %}
+            {% for e in item %}
+                <div>{{ e }}</div>
+            {% endfor%}
+            <br><br>
+        {% endfor %}
+    </main>
+</body>
+</html>

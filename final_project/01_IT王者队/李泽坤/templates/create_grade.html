@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Grade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='grade.css')}}">
+</head>
+<body>
+    <header id="header">
+        <h1>新建学生成绩</h1>
+    </header>
+    <main id="main">
+        <form action="{{ url_for('create_grade', sno_id=sno_id) }}" method="post">
+            <input type="text" name="course" id="course" placeholder="the course id ">
+            <input type="text" name="grade" id="grade" placeholder="the grade">
+            <input type="submit" value="Submit">
+            <a href="{{ url_for('grade', sno_id=sno_id)}}">Cancal</a>
+        </form>
+    </main>
+</body>
+</html>

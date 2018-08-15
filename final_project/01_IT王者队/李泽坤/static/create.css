@@ -1,0 +1,39 @@
+body {
+    font-family: Consolas;
+    font-size: 2rem;
+}
+
+#header {
+    text-align: center;
+    color: darkcyan;
+}
+
+#main form{
+    margin-top: 1rem;
+    width: 30rem;
+    border: solid navy 3px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    position: absolute;
+    left: 21rem;
+}
+
+#id,
+#name,
+#sex,
+#age {
+    position: relative;
+    height: 2rem;
+    width: 20rem;
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 6em;
+}
+
+#createsubmit {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 5em;
+}

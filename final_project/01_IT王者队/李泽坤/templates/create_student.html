@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='create.css') }}">
+</head>
+<body>
+    <header id="header">
+        <h1>新建学生信息</h1>
+    </header>
+    <main id="main">
+        <form action="/students/new" method="post">
+            <input type="text" name="newId" id="id" placeholder="new student id" maxlength="11" minlength="11">
+            <input type="text" name="newName" id="name" placeholder="new student name">
+            <input type="text" name="newSex" id="sex" placeholder="new student sex">
+            <input type="text" name="newAge" id="age" placeholder="new student age">
+            <div id="createsubmit">
+                <input type="submit" value="Submit">
+                <a href="{{ url_for('students') }}">Cancal</a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

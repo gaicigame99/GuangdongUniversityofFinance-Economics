@@ -1,0 +1,9 @@
+#main {
+    text-align: center;
+    top: 50%;
+}
+
+#main a {
+    font-size: 5rem;
+    text-decoration: none;
+}

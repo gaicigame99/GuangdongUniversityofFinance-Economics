@@ -1,0 +1,29 @@
+body {
+    font-family: Consolas;
+    font-size: 2rem;
+}
+
+#header {
+    text-align: center;
+    color: darkcyan;
+}
+
+#main {
+    position: absolute;
+    left: 21rem;
+}
+#newname,
+#newsex,
+#newage {
+    position: relative;
+    height: 2rem;
+    width: 20rem;
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 6em;
+}
+
+#editSubmit {
+    margin-left: 4.5em;
+}

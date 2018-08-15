@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editor.css') }}">
+</head>
+<body>
+<header id="header">
+    <h1>修改信息</h1>
+</header>
+<main id="main">
+    <form action="{{ url_for('edit', sno_id=sno_id) }}" method="post">
+        <input type="text" name="newname" id="newname" placeholder="new name">
+        <input type="text" name="newsex" id="newsex" placeholder="new sex">
+        <input type="text" name="newage" id="newage" placeholder="new age">
+        <div id="editSubmit">
+            <input type="submit" value="Submit">
+            <a href="{{ url_for('students') }}">Cancal</a>
+        </div>
+
+    </form>
+</main>
+</body>
+</html>

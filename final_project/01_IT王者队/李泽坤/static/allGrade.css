@@ -1,0 +1,32 @@
+body {
+    font-family: Consolas;
+    font-size: 2rem;
+}
+
+#main {
+    text-align: center;
+}
+
+#main h3 a {
+    padding: 1rem;
+    font-size: 3rem;
+    text-decoration: none;
+    color: white;
+}
+
+#main h3 {
+    background: darkcyan;
+    margin-top: 0%;
+}
+
+a.build {
+    margin-right: 3rem;
+}
+
+a.leave {
+    margin-left: 3rem;
+}
+
+#main div {
+    display: inline;
+}

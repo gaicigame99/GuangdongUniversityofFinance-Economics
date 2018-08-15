@@ -1,0 +1,19 @@
+body {
+    font-family: Consolas;
+    font-size: 2rem;
+}
+
+#header {
+    text-align: center;
+    color: darkcyan;
+}
+
+#main {
+    text-align: center;
+}
+
+#main input {
+    margin-top: 3rem;
+    width: 5rem;
+    height: 2rem;
+}
