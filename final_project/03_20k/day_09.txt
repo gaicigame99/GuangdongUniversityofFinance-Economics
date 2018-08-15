@@ -1,0 +1,264 @@
+import pygame
+import random
+
+pygame.init()
+screen=pygame.display.set_mode((600,1000))
+background=pygame.image.load(r"images\background.png")
+background=pygame.transform.scale(background,(600,1000))
+RED_COLOR=(255,0,0)
+hero=pygame.image.load("images\hero.gif")
+hx=100
+hy=100
+h_rect=hero.get_rect()
+h_width=h_rect.width
+h_height=h_rect.height
+
+bullet1=pygame.image.load(r"images\bullet-1.gif")
+b_rect=bullet1.get_rect()
+b_width=b_rect.width
+b_height=b_rect.height
+b_x=[]
+b_y=[]
+b_speed=5
+b_v=15    #发射频率
+time=b_v
+
+enemy=pygame.image.load("images\enemy0.png")
+enemy_x=[]
+enemy_y=[]
+enemy_x_speed = []
+enemy_y_speed = []
+
+enemy1=pygame.image.load("images\enemy1.png")
+enemy1_x=[]
+enemy1_y=[]
+blood_enemy1=[]
+
+enemy2=pygame.image.load("images\enemy2.png")
+enemy2_x=[]
+enemy2_y=[]
+blood_enemy2=[]
+
+font=pygame.font.Font("C:\Windows\Fonts\Verdana.ttf",20)       #字体
+PURPLE_COLOR=(100,100,200)
+score=0
+
+for i in range(5):  # 小敌人初始坐标
+    a = random.randint(10, 550)
+    enemy_x.append(a)
+    b = random.randint(-100,-50 )
+    enemy_y.append(b)
+    enemy_x_speed.append(1)
+    enemy_y_speed.append(1)
+for i in range(5):  # 中敌人初始坐标
+    a = random.randint(10, 550)
+    enemy1_x.append(a)
+    b = random.randint(-100,-50 )
+    enemy1_y.append(b)
+    enemy_x_speed.append(1)
+    enemy_y_speed.append(1)
+    blood_enemy1.append(3)
+for i in range(3):  # 大敌人初始坐标
+        a = random.randint(10, 550)
+        enemy2_x.append(a)
+        b = random.randint(-500, -300)
+        enemy2_y.append(b)
+        enemy_x_speed.append(1)
+        enemy_y_speed.append(1)
+        blood_enemy2.append(5)
+
+e_rect=enemy.get_rect()
+e_width=e_rect.width
+e_height=e_rect.height
+e_rect1=enemy1.get_rect()
+e_width1=e_rect1.width
+e_height1=e_rect1.height
+e_rect2=enemy2.get_rect()
+e_width2=e_rect2.width
+e_height2=e_rect2.height
+
+baozha1=pygame.image.load("images\enemy0_down1.png")
+baozha2=pygame.image.load("images\enemy0_down2.png")
+baozha3=pygame.image.load("images\enemy0_down3.png")
+baozha4=pygame.image.load("images\enemy0_down4.png")
+baozha5=pygame.image.load("images\enemy1_down1.png")
+baozha6=pygame.image.load("images\enemy1_down2.png")
+baozha7=pygame.image.load("images\enemy1_down3.png")
+baozha8=pygame.image.load("images\enemy1_down4.png")
+baozha9=pygame.image.load("images\enemy2_down1.png")
+baozha10=pygame.image.load("images\enemy2_down2.png")
+baozha11=pygame.image.load("images\enemy2_down3.png")
+baozha12=pygame.image.load("images\enemy2_down4.png")
+
+baozha1_x=[]
+baozha1_y=[]
+baozha2_x=[]
+baozha2_y=[]
+baozha3_x=[]
+baozha3_y=[]
+chixushijian1=[]
+chixushijian2=[]
+chixushijian3=[]
+
+# def enemy_fly(enemy2_x, enemy2_y, e_rect2_width, enemy_x_speed, enemy_y_speed):
+#     for i in range(len(enemy2_y)):
+#         if (enemy2_x[i] + e_rect2.width > 600 or enemy2_x[i] - e_rect2.width < 0):
+#             enemy_x_speed[i] = -enemy_x_speed[i]
+#     enemy2_y[i] += enemy_y_speed[i]
+#     enemy2_x[i] += enemy_x_speed[i]
+#     screen.blit(enemy2, (enemy2_x[i], enemy2_y[i]))
+
+back_music=pygame.mixer.Sound("sound\game_music.ogg")
+back_music.play()
+d=1
+while True:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            exit()
+    screen.blit(background, (0, 0))
+    defen = font.render('Score: ', True, PURPLE_COLOR)
+    screen.blit(defen, (10, 10))
+    hx,hy=pygame.mouse.get_pos()
+    if time:                                #装填子弹
+        time-=1
+    else:
+        b_x.append(hx-b_rect.width/2+2)
+        b_y.append(hy-h_height/2-b_rect.height)
+        time=b_v
+    for i in range(len(b_x)):               #子弹
+        screen.blit(bullet1, (b_x[i],b_y[i]))
+        b_y[i]-=b_speed
+        if(b_y[i]<0-b_rect.height):
+            del b_y[i]
+            del b_x[i]
+            break
+        for j in range(len(enemy_y)):
+            if (b_y[i] < enemy_y[j] + e_rect.height and b_x[i] + b_rect.width > enemy_x[j]      #子弹碰到小敌人
+                and b_x[i] < enemy_x[j] + e_rect.width and b_y[i]+ b_height>enemy_y[j]):
+                b_y[i] = -1500
+                b_x[i] = -1500
+                score+=1
+                baozha1_x.append(enemy_x[j])
+                baozha1_y.append(enemy_y[j])
+                chixushijian1.append(40)
+                del enemy_y[j]
+                del enemy_x[j]
+                break
+
+        for j in range(len(enemy1_y)):
+            if (b_y[i] < enemy1_y[j] + e_rect1.height and b_x[i] + b_rect.width > enemy1_x[j]      # 子弹碰到中敌人
+                    and b_x[i] < enemy1_x[j] + e_rect1.width and b_y[i] + b_height > enemy1_y[j]):
+                score += 1
+                b_y[i] = -1500
+                b_x[i] = -1500
+                blood_enemy1[j]=blood_enemy1[j]-1
+                print(blood_enemy1)
+                if(blood_enemy1[j]<=0):
+                    baozha2_x.append(enemy1_x[j])
+                    baozha2_y.append(enemy1_y[j])
+                    chixushijian2.append(40)
+                    del enemy1_y[j]
+                    del enemy1_x[j]
+                    break
+
+        for j in range(len(enemy2_y)):
+            if (b_y[i] < enemy2_y[j] + e_rect2.height and b_x[i] + b_rect.width > enemy2_x[j]      # 子弹碰到大敌人
+                    and b_x[i] < enemy2_x[j] + e_rect2.width and b_y[i] + b_height > enemy2_y[j]):
+                b_y[i] = -1500
+                b_x[i] = -1500
+                score += 1
+                blood_enemy2[j]=blood_enemy2[j]-1
+                if(blood_enemy2[j]<=0):
+                    baozha3_x.append(enemy2_x[j])
+                    baozha3_y.append(enemy2_y[j])
+                    chixushijian3.append(40)
+                    del enemy2_y[j]
+                    del enemy2_x[j]
+                    break
+
+    if (d==1):                                                                      # 小敌人爆炸效果
+        if(len(baozha1_x)!=0):
+            for i in range(len(baozha1_x)):
+                if(41>chixushijian1[i]>30):
+                    screen.blit(baozha1, (baozha1_x[i], baozha1_y[i]))
+                    chixushijian1[i] -= 1
+                if (30>=chixushijian1[i]>20):
+                    screen.blit(baozha2, (baozha1_x[i], baozha1_y[i]))
+                    chixushijian1[i] -= 1
+                if (20 >= chixushijian1[i] > 10):
+                    screen.blit(baozha3, (baozha1_x[i], baozha1_y[i]))
+                    chixushijian1[i] -= 1
+                if (10 >= chixushijian1[i] > 0):
+                    screen.blit(baozha4, (baozha1_x[i], baozha1_y[i]))
+                    chixushijian1[i]-=1
+
+    if (d==1):                                                                      # 中敌人爆炸效果
+        if(len(baozha2_x)!=0):
+            for i in range(len(baozha2_x)):
+                if(41>chixushijian2[i]>30):
+                    screen.blit(baozha5, (baozha2_x[i], baozha2_y[i]))
+                    chixushijian2[i] -= 1
+                if (30>=chixushijian2[i]>20):
+                    screen.blit(baozha6, (baozha2_x[i], baozha2_y[i]))
+                    chixushijian2[i] -= 1
+                if (20 >= chixushijian2[i] > 10):
+                    screen.blit(baozha7, (baozha2_x[i], baozha2_y[i]))
+                    chixushijian2[i] -= 1
+                if (10 >= chixushijian2[i] > 0):
+                    screen.blit(baozha8, (baozha2_x[i], baozha2_y[i]))
+                    chixushijian2[i]-=1
+
+    if (d==1):                                                                      # 大敌人爆炸效果
+        if(len(baozha3_x)!=0):
+            for i in range(len(baozha3_x)):
+                if(41>chixushijian3[i]>30):
+                    screen.blit(baozha9, (baozha3_x[i], baozha3_y[i]))
+                    chixushijian3[i] -= 1
+                if (30>=chixushijian3[i]>20):
+                    screen.blit(baozha10, (baozha3_x[i], baozha3_y[i]))
+                    chixushijian3[i] -= 1
+                if (20 >= chixushijian3[i] > 10):
+                    screen.blit(baozha11, (baozha3_x[i], baozha3_y[i]))
+                    chixushijian3[i] -= 1
+                if (10 >= chixushijian3[i] > 0):
+                    screen.blit(baozha12, (baozha3_x[i], baozha3_y[i]))
+                    chixushijian3[i]-=1
+
+    defen1 = font.render(str(score), True, PURPLE_COLOR)
+    screen.blit(defen1, (80, 10))
+    for i in range(len(enemy_y)):                              #小敌人飞行
+        if(enemy_x[i]+e_rect.width>600 or enemy_x[i]-e_rect.width<0):
+            enemy_x_speed[i]=-enemy_x_speed[i]
+        # else:
+        #     enemy_x_speed[i] =1
+        enemy_y[i]+=enemy_y_speed[i]
+        enemy_x[i]+=enemy_x_speed[i]
+        screen.blit(enemy, (enemy_x[i], enemy_y[i]))
+
+    for i in range(len(enemy1_y)):                             #中敌人飞行
+        if(enemy1_x[i]+e_rect1.width>600 or enemy1_x[i]-e_rect1.width<0):
+            enemy_x_speed[i]=-enemy_x_speed[i]
+
+        enemy1_y[i]+=enemy_y_speed[i]
+        enemy1_x[i]+=enemy_x_speed[i]
+        screen.blit(enemy1, (enemy1_x[i], enemy1_y[i]))
+
+
+    for i in range(len(enemy2_y)):                            #大敌人飞行
+        if(enemy2_x[i]+e_rect2.width>600 or enemy2_x[i]-e_rect2.width<0):
+            enemy_x_speed[i]=-enemy_x_speed[i]
+
+        enemy2_y[i]+=enemy_y_speed[i]
+        enemy2_x[i]+=enemy_x_speed[i]
+        screen.blit(enemy2, (enemy2_x[i], enemy2_y[i]))
+
+    for i in range(len(enemy1_x)):
+        pygame.draw.line(screen,PURPLE_COLOR,(enemy1_x[i],enemy1_y[i]+e_height1+2),(enemy1_x[i]+blood_enemy1[i]*23,
+                                                                                    enemy1_y[i]+e_height1+2),3)
+        # pygame.draw.line(screen,RED_COLOR,(enemy1_x[i]+3*23, enemy1_y[i]+e_height1+2), (enemy1_x[i]+3*23 - (3-blood_enemy1[i])*23,
+        #                                                                             enemy1_y[i]+e_height1+2),3)
+
+
+    screen.blit(hero,(hx-h_width/2,hy-h_height/2))
+
+    pygame.display.update()
